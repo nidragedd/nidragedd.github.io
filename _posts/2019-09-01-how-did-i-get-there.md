@@ -22,10 +22,11 @@ During these years I have accompanied the various technological changes: arrival
 {: style="text-align: justify;"}
 So for those who do not know me very well and do not know that AI has always been a subject of interest on which I invest personal time, necessarily the 
 question that burns their lips is: "***but...why ?***"  
-It's even more true in France where reactions are sometimes something like: _'why the hell, when you "have a good job position" would you leave it to do ..... wait, could you remind me what are you actually doing already ?'_
-{: style="text-align: justify;"}
-I thank the company in which I work and who gave me the opportunity to realize this dream, which would probably not have been possible elsewhere in France.
-No other french company would have hired me to do something else than what I already did in the past.
+It's even more true in France where reactions are sometimes something like: _'why the hell, when you "have a good job position" would you leave it to do ..... wait, could you remind me what are you actually doing already ?'_  
+
+_Well, first, let's say that this new career is not less valuable, it's just something new, something else and I am proud enough to have had the courage to leave my comfort zone to embark on this new adventure._  
+_I thank the company in which I work and who gave me the opportunity to realize this dream, which would probably not have been possible elsewhere in France._
+_No other french company would have hired me to do something else than what I already did in the past._
 {: .small style="text-align: justify;"}
 <figure style="width: 400px" class="align-right">
   <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20190901/compass.jpg" alt="compass">
@@ -34,7 +35,9 @@ No other french company would have hired me to do something else than what I alr
 This new adventure began 3 months ago and since then I have already been approached by several people from my more or less close circle who told me: _"what luck you have,
 DataScience is a subject I am interested in but I do not know where to start...."_
 {: style="text-align: justify;"}
-That's right. The same thing happened to me. So I shared with them the following information to help them enter this wonderful world of DataScience.
+That's right. The same thing happened to me.  
+So I shared with them the following information to help them enter this wonderful world of DataScience.  
+This gave me the idea to write down this path so that it will be easier to share for the next person that will ask me this question.
 {: style="text-align: justify;"}
 
 ## How did it happen ?
@@ -47,7 +50,7 @@ Unfortunately, what was supposed to happen happened and I hurt myself.
 And that was the big void: _"what am I going to do with all this this free time at lunchtime ?"_
 I could have binge-watched all my series late on Netflix but I decided to dig deeper into this somewhat buzzy subject: ***Machine Learning***.
 {: style="text-align: justify;"}
-***Note:*** if I had not hurt myself maybe I would still be running at noon and I would never have really taken the plunge. Perhaps one of my other me in an alternative reality is actually still running...
+***Note:*** if I had not hurt myself maybe I would still be running at noon and I would never have really taken the plunge. Perhaps one of my other me in an alternative reality is actually still running...Who knows...
 {: .small style="text-align: justify;"}
 Why am I telling all this ? Because, it must be said, learning DataScience is a process that might be long depending on your knowledge and skills. 
 You will need to be brave and patient. But if I have succeeded, there is no reason why you should not.
@@ -86,16 +89,16 @@ Sure knowing a language helped me to learn Python but you do not need to learn O
 For the basics just grab some basic tutorials on the Internet, it will be sufficient to learn the syntax.
 {: style="text-align: justify;"}
 
-### Maths refresher !
+### Math refresher !
 <figure style="width: 400px" class="align-right">
   <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20190901/maths.jpg" alt="Maths formula">
   <figcaption>Credit: Roman Mager - Unsplash</figcaption>
 </figure>
 I read in several blogs that you do not need a PhD in math to do DataScience, I was a little skeptical but I now want to believe them.  
 {: style="text-align: justify;"}
-I had to revise my math lessons in linear algebra ([Khan Academy](https://en.khanacademy.org) is fine for that, otherwise youtube is your friend).  
+I had to revise my math lessons in linear algebra ([Khan Academy](https://en.khanacademy.org/math/linear-algebra) is fine for that, otherwise youtube is your friend).  
 Let's just say that today it's not a barrier to understand algorithms or to discuss with my colleagues who have done DataScience oriented studies
-and who are probably better than me at maths ;-).
+and who are probably better than me at math ;-).
 {: style="text-align: justify;"}
 I would say that what is important to understand is the gradient descent and there are a multitude of good explanations on the net[^3][^4][^5]. 
 More globally, the most important thing is to understand what is happening mathematically in order to understand why the algorithm works or why it simply does not work
@@ -114,7 +117,7 @@ Nowadays Internet is a fantastic tool that can offer videos of people throwing b
 who will take their personal time to explain advanced mathematical concepts to you.
 {: .small style="text-align: justify;"}
 
-While browsing the elitedatascience blog I already mentioned, I found this link to a youtube playlist containing all the videos from the 
+While browsing the [elitedatascience](https://elitedatascience.com/) blog which I have already mentioned, I found this link to a youtube playlist containing all the videos from the 
 [machine learning course given by Andrew Ng](https://www.youtube.com/watch?v=qeHZOdmJvFU&list=PLZ9qNFMHZ-A4rycgrgOYma6zxF4BZGGPW&index=1) (a rock star in the 
 DataScience field) and I viewed them all. All of them. And some of them even several times.  
 Of course there are no exercises but I also found this [blog](http://www.johnwittenauer.net/machine-learning-exercises-in-python-part-1/) of a person who had 
@@ -124,7 +127,7 @@ fun redoing the exercises in Python. And that, it is really cool!
 [3Blue1Brown](https://www.youtube.com/watch?v=kYB8IZa5AuE&index=3&list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab) provides also a wonderful series of videos about Linear Algebra.
 {: .small style="text-align: justify;"}
 
-Pay attention to those tutorials from [Siraj Raval - (Math of Intelligence)](https://www.youtube.com/watch?v=xRJCOz3AfYY&list=PL2-dafEMk2A7mu0bSksCGMJEmeddU_H4D).
+Pay attention to those videos from [Siraj Raval - (Math of Intelligence)](https://www.youtube.com/watch?v=xRJCOz3AfYY&list=PL2-dafEMk2A7mu0bSksCGMJEmeddU_H4D).
 {: .small style="text-align: justify;"}
 
 ### Learn Python for DataScience
@@ -133,12 +136,13 @@ To learn python packages oftenly used in DataScience, I would highly recommend t
 * [Kaggle Learn Pandas Course](https://www.kaggle.com/learn/pandas)
 * [Kaggle Intro to Machine Learning](https://www.kaggle.com/learn/intro-to-machine-learning)
 * [Kaggle Deep Learning](https://www.kaggle.com/learn/deep-learning)  
+
 You will just need to create an account on Kaggle (but it's free).
 
 ### Practice with caution !
 You will read in many blogs that it is certainly important to read articles, to do research, to be informed. _That is true_.  
 But it is also said that **you will only really progress by practicing**. And that's also true.  
-There are a lof of algorithms[^6] and a lof od interesting domains so do not try to master them all, pick one, read informations, try, experiment then go to another or go deeper if you want.
+There are **a lof of algorithms[^6]** and a lof of interesting domains so **do not try to master them all**, pick one, read informations, try, experiment then go to another one or go deeper if you want to focus on this particular one.
 {: style="text-align: justify;"}
 
 #### My heart will go on !
@@ -179,10 +183,14 @@ There are plenty of blogs, websites talking about Machine Learning. I have not t
 * [Kaggle](https://www.kaggle.com/) of course
 * [towardsdatascience](https://towardsdatascience.com/)
 * [machinelearningmastery](https://machinelearningmastery.com/): with a lot of posts titled "gentle introduction to <some_topic>".
-* [elitedatascience](https://elitedatascience.com/)  
+* [elitedatascience](https://elitedatascience.com/)
+* [pyimagesearch](https://www.pyimagesearch.com/): computer vision with opencv and neural networks.
+* [fastai](https://course.fast.ai): more advanced but interesting videos vy Jeremy Howard.  
 To name but a few.  
 
 _Of course Google, StackOverflow or medium are still your best friends forever._
+
+If you have read this until the end, thank you. Hope this helps !
 
 
 Author: nidragedd
