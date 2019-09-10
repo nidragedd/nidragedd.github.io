@@ -1,5 +1,5 @@
 ---
-title: "How did I get there ?"
+title: "How did I get there?"
 excerpt: "In this post I share the path I took to enter the DataScience world"
 header:
   image: /assets/images/20190901/header.jpg
@@ -10,7 +10,7 @@ tags:
 classes: wide
 share: True
 ---
-## Why this post ?
+## Why this post?
 <figure style="width: 400px" class="align-left">
   <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20190901/code_computer.jpg" alt="code on computer">
   <figcaption>Credit: Florian Olivo - Unsplash</figcaption>
@@ -21,8 +21,8 @@ various IT teams (starting with support and assistance until finally leading tec
 During these years I have accompanied the various technological changes: arrival of web services and SOA architecture, SPA or mobile applications up to micro-services architectures, the rise of the cloud and containerization, InfraAsCode and so on).  
 {: style="text-align: justify;"}
 So for those who do not know me very well and do not know that AI has always been a subject of interest on which I invest personal time, necessarily the 
-question that burns their lips is: "***but...why ?***"  
-It's even more true in France where reactions are sometimes something like: _'why the hell, when you "have a good job position" would you leave it to do ..... wait, could you remind me what are you actually doing already ?'_  
+question that burns their lips is: "***but...why?***"  
+It's even more true in France where reactions are sometimes something like: _'why the hell, when you "have a good job position" would you leave it to do ..... wait, could you remind me what are you actually doing already?'_  
 
 _Well, first, let's say that this new career is not less valuable, it's just something new, something else and I am proud enough to have had the courage to leave my comfort zone to embark on this new adventure._  
 _I thank the company in which I work and who gave me the opportunity to realize this dream, which would probably not have been possible elsewhere in France._
@@ -40,19 +40,19 @@ So I shared with them the following information to help them enter this wonderfu
 This gave me the idea to write down this path so that it will be easier to share for the next person that will ask me this question.
 {: style="text-align: justify;"}
 
-## How did it happen ?
+## How did it happen?
 Before moving forward, let me tell you how it all started and what a strange coincidence it was.
 I am passionate about running. It is my favourite sport and I run (actually I used to run) several times a week, sometimes up to 55 miles (90km). 
 Working at DECATHLON, the world leader in sports, I was lucky enough to be able to exercise this passion at lunchtime because in the workplace there is everything
 you need to practice and shower.
 {: style="text-align: justify;"}
 Unfortunately, what was supposed to happen happened and I hurt myself.
-And that was the big void: _"what am I going to do with all this this free time at lunchtime ?"_
+And that was the big void: _"what am I going to do with all this this free time at lunchtime?"_
 I could have binge-watched all my series late on Netflix but I decided to dig deeper into this somewhat buzzy subject: ***Machine Learning***.
 {: style="text-align: justify;"}
 ***Note:*** if I had not hurt myself maybe I would still be running at noon and I would never have really taken the plunge. Perhaps one of my other me in an alternative reality is actually still running...Who knows...
 {: .small style="text-align: justify;"}
-Why am I telling all this ? Because, it must be said, learning DataScience is a process that might be long depending on your knowledge and skills. 
+Why am I telling all this? Because, it must be said, learning DataScience is a process that might be long depending on your knowledge and skills. 
 You will need to be brave and patient. But if I have succeeded, there is no reason why you should not.
 {: style="text-align: justify;"}
 
@@ -72,9 +72,9 @@ DataScience is at the crossroads between business, statistics/maths and IT (prog
 * Maths:...ouch! It's been a while...
 * Stats: roughly...
 {: .small }
-OK, 1 over 3, hummm, you sure you wanna do that ?
+OK, 1 over 3, hummm, you sure you wanna do that?
 
-### 1st thing: learn Python !
+### 1st thing: learn Python!
 <figure style="width: 400px" class="align-left">
   <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20190901/python.jpg" alt="Python book">
   <figcaption>Credit: Christina Morillo - Pexels</figcaption>
@@ -89,7 +89,7 @@ Sure knowing a language helped me to learn Python but you do not need to learn O
 For the basics just grab some basic tutorials on the Internet, it will be sufficient to learn the syntax.
 {: style="text-align: justify;"}
 
-### Math refresher !
+### Math refresher!
 <figure style="width: 400px" class="align-right">
   <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20190901/maths.jpg" alt="Maths formula">
   <figcaption>Credit: Roman Mager - Unsplash</figcaption>
@@ -139,13 +139,13 @@ To learn python packages oftenly used in DataScience, I would highly recommend t
 
 You will just need to create an account on Kaggle (but it's free).
 
-### Practice with caution !
+### Practice with caution!
 You will read in many blogs that it is certainly important to read articles, to do research, to be informed. _That is true_.  
 But it is also said that **you will only really progress by practicing**. And that's also true.  
 There are **a lof of algorithms[^6]** and a lof of interesting domains so **do not try to master them all**, pick one, read informations, try, experiment then go to another one or go deeper if you want to focus on this particular one.
 {: style="text-align: justify;"}
 
-#### My heart will go on !
+#### My heart will go on!
 <figure style="width: 500px" class="align-right">
   <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20190901/titanic.jpg" alt="Titanic">
   <figcaption>Credit: K. Mitch Hodge - Unsplash</figcaption>
@@ -154,15 +154,15 @@ My very first project was to follow a very popular and known tutorial: the [Tita
 [Kaggle](https://www.kaggle.com/) (a platform hosting Datascience competitions but also offering several very interesting tutorials, it is a privileged meeting 
 place for DataScientists from all over the world).  
 {: .small style="text-align: justify;"}
-The goal is quite simple: do you know the Titanic ? You know it went pretty badly wrong, right ? Well in this exercise you are given a list of passengers and 
+The goal is quite simple: do you know the Titanic? You know it went pretty badly wrong, right? Well in this exercise you are given a list of passengers and 
 you have to **build and train an algorithm that will predict whether the person survived or not**. It's not a very joyful context but it is an excellent exercise 
-to start with: not too simple or too complex. And of course if you like you can even submit your results on the platform and compare yourself with other DataScientists !
+to start with: not too simple or too complex. And of course if you like you can even submit your results on the platform and compare yourself with other DataScientists!
 {: .small style="text-align: justify;"}
 For my first project I was very inspired by these two links [here](https://nbviewer.jupyter.org/github/savarin/pyconuk-introtutorial/tree/master/notebooks/) and [there](https://www.kaggle.com/startupsci/titanic-data-science-solutions/data)
 If you're interested, here is [my project on github](https://github.com/nidragedd/datascience-titanic-challenge).
 {: .small style="text-align: justify;"}
 
-#### Is it a dog or a cat ?
+#### Is it a dog or a cat?
 <figure style="width: 260px" class="align-left">
   <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20190901/cat_dog.jpg" alt="Cat and dog">
   <figcaption>Credit: Anusha Barwa - Unsplash</figcaption>
@@ -190,7 +190,7 @@ To name but a few.
 
 _Of course Google, StackOverflow or medium are still your best friends forever._
 
-If you have read this until the end, thank you. Hope this helps !
+If you have read this until the end, thank you. Hope this helps!
 
 
 Author: nidragedd
@@ -198,9 +198,9 @@ Author: nidragedd
 
 ---
 
-[^1]: [R vs. Python: what's the difference ?](https://www.guru99.com/r-vs-python.html)
+[^1]: [R vs. Python: what's the difference?](https://www.guru99.com/r-vs-python.html)
 [^2]: [Python vs. R - Choosing the Best Programming Language for Data Science](https://towardsdatascience.com/python-vs-r-choosing-the-best-programming-languages-for-data-science-b1327f01f6bf)
 [^3]: Gradient Descent for Machine Learning on [machinelearningmastery](https://machinelearningmastery.com/gradient-descent-for-machine-learning/)
-[^4]: Gradient Descent or How Neural Network is learning ? by [3Blue1Brown](https://www.youtube.com/watch?v=IHZwWFHWa-w&list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi&index=2)
+[^4]: Gradient Descent or How Neural Network is learning? by [3Blue1Brown](https://www.youtube.com/watch?v=IHZwWFHWa-w&list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi&index=2)
 [^5]: Gradient Descent derivation by [Chris McCormick](http://mccormickml.com/2014/03/04/gradient-descent-derivation/)
 [^6]: Modern Machine Learning Algorithms: Strengths and Weaknesses on [elitedatascience](https://elitedatascience.com/machine-learning-algorithms)

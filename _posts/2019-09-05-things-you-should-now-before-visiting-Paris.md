@@ -34,7 +34,7 @@ To come and visit Paris you can look for accommodation, a hotel by your own mean
 
 If you  have followed technological news recently you have necessarily heard about the resounding successes such as:
 * those of DeepMind with _AlphaZero_, an AI that masters chess, shogi, and Go games through self-play[^4][^5]
-* or _Pluribus_ an AI bot that masters Texas hold'em poker with 6 players[^6] !  
+* or _Pluribus_ an AI bot that masters Texas hold'em poker with 6 players[^6]!  
 
 *The advances of AI are numerous and affect many fields* (commerce, finance, medicine, etc.).  
 
@@ -58,7 +58,7 @@ The comments, interpretations and conclusions are therefore my own ones and are 
 {: .notice--success}
 
 ---
-# Let's get this party started !
+# Let's get this party started!
 The remainder of this post is organized into two topics:
 * The first one is related to data analysis and will aim to answer questions from this scenario:
 > Let's put myself in the shoes of a tourist who would love to come and visit Paris. As a tourist/foreigner, an Airbnb service user and also someone who absolutely does not know Paris, I would like to know what is the best period or the best place (or both) in order to plan my visit/holidays. As "best" can means a lot, here:
@@ -67,7 +67,7 @@ The remainder of this post is organized into two topics:
 3. I would be glad to know what are the odds to find something available for a given period so that perhaps I can adapt my holidays accordingly to places availabilities (there is an alternative for the homeowner who would like be sure to rent at the best time that will maximize the profit and so maybe adapt the location availability depending on the market as well).
 {: style="text-align: justify;"}
 * The second one is more related to machine learning algorithms:
-> Let's see if we are able to predict price with pretty good accuracy/confidence for a given listing ? Indeed, as a service user who plans to rent its home, I can spend plenty of time by looking at other places and their price to find the best but still competitive price to ensure I will be chosen. Or, more user friendly: based on information I give, the system predicts the right price !
+> Let's see if we are able to predict price with pretty good accuracy/confidence for a given listing? Indeed, as a service user who plans to rent its home, I can spend plenty of time by looking at other places and their price to find the best but still competitive price to ensure I will be chosen. Or, more user friendly: based on information I give, the system predicts the right price!
 {: style="text-align: justify;"}
 ## 1. At the right place...
 In data, Airbnb listings are provided with latitude and longitude coordinates. When we plot them on a scatterplot, here is what we get:
@@ -83,7 +83,7 @@ We are also able to guess the _Seine_ which is the river that crosses the city.
   <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20190905/price_per_neighbourhood_french_study.jpg" alt="Price per neighbourhood">
   <figcaption>Mean price in euros per square meter of real estate per neighbourhood as per french study</figcaption>
 </figure>
-It is written in this french study published in April 2019[^9] that _"the price of real estate has reached stratospheric levels and totally disconnected from residents' incomes. But what are the prices, neighbourhood per neighbourhood ?"_
+It is written in this french study published in April 2019[^9] that _"the price of real estate has reached stratospheric levels and totally disconnected from residents' incomes. But what are the prices, neighbourhood per neighbourhood?"_
 {: style="text-align: justify;"}
 According to this study, top 5 is:  
  -- 6e (Luxembourg) (13 944 &euro;/m<sup>2</sup>)  
@@ -95,32 +95,32 @@ According to this study, top 5 is:
 Whereas 19e and 20e (respectively Buttes-Chaumont and Menilmontant) have the "cheapest" price.  
 {: .small style="text-align: justify;"}
 <br />
-### So, has the neighbourhood a real impact on the price ?
-_Is it something that we can also observe in our data ? Can we confirm the french study observations ?_
+### So, has the neighbourhood a real impact on the price?
+_Is it something that we can also observe in our data? Can we confirm the french study observations?_
 <figure class="align-center" style="width: 600px">
   <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20190905/ml_mean_price_per_neighbourhood.png" alt="Paris Airbnb mean price per neighbourhood">
   <figcaption>Paris Airbnb listings mean price per neighbourhood</figcaption>
 </figure>
 
-**Interesting: the top 5 from the study is within the top 6 of the mean price !**
+**Interesting: the top 5 from the study is within the top 6 of the mean price!**
 Here are some other insights caught from data:
 <figure class="align-center" style="width: 800px">
   <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20190905/ml_plots_per_neighbourhood_1.png" alt="Paris Airbnb number of listings and their availaility per neighbourhood">
   <figcaption>Paris Airbnb number of listings and their availaility per neighbourhood</figcaption>
 </figure>
 
-**_Elysee_ is far the most expensive neighbourhood** and the one with most availability (perhaps due to the price ?) even if there are few listings (only _Louvre_ has less listings to offer).  
+**_Elysee_ is far the most expensive neighbourhood** and the one with most availability (perhaps due to the price?) even if there are few listings (only _Louvre_ has less listings to offer).  
 10 neighbourhoods have mean price above the **mean value (116&euro;)** while 10 have mean price below. So it's a 50-50.  
-It is though important to notice that only 2 neighbourhoods have mean price below the **median value (80&euro;)**: _Menilmontant_ and _Buttes-Chaumont_. Same result than the study ! In those 2 neighbourhoods, there are a lot of listings but with few availability per year, 60 days in average.
+It is though important to notice that only 2 neighbourhoods have mean price below the **median value (80&euro;)**: _Menilmontant_ and _Buttes-Chaumont_. Same result than the study! In those 2 neighbourhoods, there are a lot of listings but with few availability per year, 60 days in average.
 {: .notice--primary style="text-align: justify;"}
 
-### But of course it depends on type of room I will rent, right ?
+### But of course it depends on type of room I will rent, right?
 In Airbnb data, there are 3 types of room available to rent:
 * Entire home/apt
 * Private room
 * Shared room
 {: .small }
-What is their share ? Where are they ? Does it really change something on the price ?
+What is their share? Where are they? Does it really change something on the price?
 
 <figure class="align-center" style="width: 700px">
   <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20190905/ml_plot_per_roomtype.png" alt="Paris Airbnb listing location per room type">
@@ -136,7 +136,7 @@ What is their share ? Where are they ? Does it really change something on the pr
 This is interesting: **choosing a private room or an entire apartment has few influence on the price**. On the other side, you can expect to divide by 2 the mean price by choosing a shared room. There are less than 500 shared rooms available but they are almost everywhere.
 {: .notice--primary style="text-align: justify;"}
 
-### Where are the most and less expensive listings ?
+### Where are the most and less expensive listings?
 We have seen that shared rooms are less expensive so in this section they are filtered to not catch them in the less expensive listings.
 
 <figure class="align-center" style="width: 700px">
@@ -145,12 +145,12 @@ We have seen that shared rooms are less expensive so in this section they are fi
 </figure>
 
 **OBSERVATIONS**: depending on your budget, it can really cost you a lot to sleep in Paris. The most expensive neighbourhoods are the one in the center of the city, you will pay less and less gradually as you go further but in those neighbourhoods, the availability rate is not very high because you will probably find apartments in which people live most of the time and rent when they are away from their home.  
-***Tip:*** you can expect to divide by 2 the mean price by choosing a shared room and there are almost everywhere in the city so that you are not stucked in a specific place. So, ready to share your room ?
+***Tip:*** you can expect to divide by 2 the mean price by choosing a shared room and there are almost everywhere in the city so that you are not stucked in a specific place. So, ready to share your room?
 {: .notice--success style="text-align: justify;"}
 
-## 2. ...and at the right time !
+## 2. ...and at the right time!
 ### Choosing the right period
-Are there some periods of time with higher/lower availabilty ?
+Are there some periods of time with higher/lower availabilty?
 
 <figure class="align-center" style="width: 700px">
   <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20190905/ml_plot_availability_over_time.png" alt="Paris Airbnb listing mean availability evolution over time">
@@ -165,7 +165,7 @@ Note: vertical dashed red lines corresponds to french school holidays begin/end 
 		<li>availability is very low at the beginning (July) but I guess this behaviour is expected as most of the listings have found guests for the next coming weeks (remember that the data are the one from July).</li>
 		<li>there is a <b>peak in August which is the highest availability</b>. Again, this is summer holidays and I guess that a lot of people are leaving and then put their home/apartment as available.</li>
 		<li>we then see the <b>'Back to school' impact in September</b> with another availability during autumn holidays.</li>
-		<li>it then becomes more and more available with a <b>new availability peak just after Christmas holidays, for New Year</b> (want to see fireworks at Eiffel Tower ?).</li>
+		<li>it then becomes more and more available with a <b>new availability peak just after Christmas holidays, for New Year</b> (want to see fireworks at Eiffel Tower?).</li>
 		<li>after that it goes back to "normal" and flat rate perhaps because it is so far that people just left their calendar as it has been filled without changing anything.</li>
 	</ul>
 </div>
@@ -189,7 +189,7 @@ Note: vertical dashed red lines corresponds to french school holidays begin/end 
 	</ul>
 </div>
 
-#### Is there a big difference between neighbourhoods ?
+#### Is there a big difference between neighbourhoods?
 <figure class="align-center" style="width: 700px">
   <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20190905/ml_plot_price_over_time_per_neighbourhood.png" alt="Paris Airbnb listing mean price evolution over time per neighbourhood">
   <figcaption>Paris Airbnb listing mean price evolution over time per neighbourhood</figcaption>
@@ -210,19 +210,19 @@ No matter the neighbourhood, they all contain, at different level of price, the 
 	<p>If we do not take into account the period after Christmas (because prices are increasing with lower availability, I guess people mostly gave availabilities for 2019 but dit not yet do the same thing for 2020), we can see that:</p>
 	<ul>
 		<li>the <b>'Christmas effect' results in +6% (average) for prices</b> with some neighbourhoods above that (<i>Elysee</i> has +10% for example, where you can find the <i>Champs Elysees</i>).</li>
-		<li>the <b>'New Year effect' has a huge impact on neighbourhoods in the center such as <i>Elysee</i>, <i>Palais-Bourbon</i>, or <i>Temple</i> with +17 to +19% !</b></li>
+		<li>the <b>'New Year effect' has a huge impact on neighbourhoods in the center such as <i>Elysee</i>, <i>Palais-Bourbon</i>, or <i>Temple</i> with +17 to +19%!</b></li>
 	</ul>
 </div>
 
-## And now it's time to try to predict the price !
+## And now it's time to try to predict the price!
 
 <figure class="align-center">
   <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20190905/crystal_ball.jpg" alt="Crystal ball">
   <figcaption>Crystal ball - Credit: Marc Schulte - Unsplash</figcaption>
 </figure>
 
-### What kind of problem is it and how can we evaluate our performance ?
-Here our goal is to **predict** the price, which is a **quantitative value**, that is why we call that a ***regression problem*** (in opposition to _classification_ problems for which we predict qualitative value, for example "Is it a dog or a cat ?").  
+### What kind of problem is it and how can we evaluate our performance?
+Here our goal is to **predict** the price, which is a **quantitative value**, that is why we call that a ***regression problem*** (in opposition to _classification_ problems for which we predict qualitative value, for example "Is it a dog or a cat?").  
 {: style="text-align: justify;"}
 <figure style="width: 450px" class="align-right">
   <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20190905/dartboard.jpg" alt="Dartboard">
@@ -233,7 +233,7 @@ To evaluate the performance I will use a metric called ***RMSE*** which stands f
 Basically here is how it works:
 {: .small }
 * we predict the price: let's call the result _y_pred_
-* we compare _y_pred_ with the real price _y_ and compute the difference _y - y_pred_: this is our error. Note that it can be a positive or a negative number depending on our prediction (did we predict above or below the real price ?)
+* we compare _y_pred_ with the real price _y_ and compute the difference _y - y_pred_: this is our error. Note that it can be a positive or a negative number depending on our prediction (did we predict above or below the real price?)
 * as this error can be positive or negative, when summing all errors to see how much we are wrong we do not want negative errors kind of cancel positive errors. That is why the error is squarred so that the error will always be a positive number.
 * those squarred errors are then summed and this number is then divided by the number of elements for which we are making prediction, so it is in the end a mean value for overall error.
 * in the end we take the square root
@@ -242,7 +242,7 @@ One of the advantages (among others) it that RMSE gives higher weightage and pun
 You can then easily understand that **the lower this RMSE value, the best our model will be**. Our model will then have for objective to minimize this value.
 {: style="text-align: justify;"}
  
-### OK so now what is the model to use ?
+### OK so now what is the model to use?
 Actually I will not pick one model randomly but instead I will try a few:
 * a very "naive" one that will return as predicted value the mean price of the neighbourhood the listing belongs to
 * another very simple statistic model: a **linear regression** (it will be our reference model to compare to)
@@ -250,7 +250,7 @@ Actually I will not pick one model randomly but instead I will try a few:
 * a more complex model (but yet still based on trees) named **XGBoost**.
 {: .small }
 
-***Why ?***
+***Why?***
 
 Naive model
 :   Motivation for the naive model is to compare more complex models with something very simple that does not even require machine learning and see how much we do better (or not...).
@@ -269,7 +269,7 @@ Extreme Gradient Boosting (XGBoost)
 :   XGBoost is also based on trees and has proven to be a very powerful machine learning technique which is often used on Kaggle competitions to solve problems.
 {: style="text-align: justify;"}
 
-If XGBoost is also based on tree, why trying it ?  
+If XGBoost is also based on tree, why trying it?  
 Because I would like to try an _ensemble_ method: the key principle is that it builds a lot of simple decision trees instead of building a complex model that tries to understand very well the data or even finds relationships between columns --- that would obviously lead us to something hard to understand.  
 Each tree, taken independently is very simple but the strength here is that combining predictions coming from all those basic estimators will provide in the end a stronger model, so a better prediction.  
 There are several ensemble technics[^11]. **With XGBoost** training is sequential and **trees are added over iterations in order to reduce the errors made by the combination of all the previous ones**.
@@ -283,7 +283,7 @@ As an example, here is what we can produce with _Decision Tree_:
 ***Note:*** we can specify the depth of the tree (i.e number of levels) and in the end, in leaves, you can see that <var>value</var> corresponds to the predicted price.
 {: .small }
 
-### The results (at least !)
+### The results (at least!)
 #### Algorithms predictions
 After a mandatory data preparation phase and some little transformations to handle missing values, here are the first results I got:
 <figure style="width: 500px" class="align-center">
@@ -396,10 +396,10 @@ The world of data is a very fascinating one and you could never end to try to do
 {: style="text-align: justify;"}
 Here you have read just an example of what is possible but we could imagine a lot of other things to try:
 {: style="text-align: justify;"}
-* we have all data since 2015, one could grab all all data per year, keep listings that exists over all years and analyze trends (seasonal, recurrents). Why not timeseries forecasting ?
+* we have all data since 2015, one could grab all data per year, keep listings that exists over all years and analyze trends (seasonal, recurrents). Why not timeseries forecasting?
 * we have all the reviews, one could try to do NLP (Natural Language Processing) and classify reviews as positive/negative ones, try to detect recurrent topics per neighbourhood...
 {: style="text-align: justify;"}
-So, are you ready to give a try by yourself ? Collect the data, it's [here](http://insideairbnb.com/get-the-data.html) !
+So, are you ready to give a try by yourself? Collect the data, it's [here](http://insideairbnb.com/get-the-data.html)!
 
 Author: nidragedd
 {: .small style="text-align: right;"}
@@ -419,7 +419,7 @@ You can also directly give a look at the [Jupyter notebooks](https://github.com/
 [^6]: AI-Bot masters Texas hold'em poker on [Science](https://science.sciencemag.org/content/365/6456/885)
 [^7]: Airflow tool [was born at Airbnb and is now under Apache Software Foundation](https://airflow.apache.org/project.html)
 [^8]: Airbnb [technical blog about AI](https://medium.com/airbnb-engineering/ai/home)
-[^9]: Paris, what price for your neighbourhood ? (in french on [seloger.com](https://edito.seloger.com/actualites/barometre-lpi-seloger/paris-quel-prix-immobilier-dans-votre-arrondissement-article-31984.html)) 
+[^9]: Paris, what price for your neighbourhood? (in french on [seloger.com](https://edito.seloger.com/actualites/barometre-lpi-seloger/paris-quel-prix-immobilier-dans-votre-arrondissement-article-31984.html)) 
 [^10]: "Please, explain the black-box" by [Olga Mierzwa-Sulima](https://appsilon.com/please-explain-black-box/)
 [^11]: [Ensemble methods: bagging, boosting and stacking, understanding the key concepts of ensemble learning](https://towardsdatascience.com/ensemble-methods-bagging-boosting-and-stacking-c9214a10a205)
 [^12]: [Project code repository on Github](https://github.com/nidragedd/udadsnd-p4-airbnb_inside)
