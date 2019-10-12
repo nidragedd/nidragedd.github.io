@@ -128,6 +128,12 @@ footer:
       icon: "fab fa-fw fa-instagram"
       # url:
 
+# Collections
+collections:
+  portfolio:
+    output: true
+    permalink: /:collection/:path/
+
 defaults:
   # _posts
   - scope:
@@ -147,10 +153,28 @@ defaults:
     values:
       layout: single
       author_profile: true
+  # _portfolio
+  - scope:
+      path: ""
+      type: portfolio
+    values:
+      layout: single
+      author_profile: false
 
-category_archive:
-  type: liquid
-  path: /categories/
+#category_archive:
+#  type: liquid
+#  path: /categories/
 tag_archive:
   type: liquid
   path: /tags/
+# https://github.com/jekyll/jekyll-archives
+#jekyll-archives:
+#  enabled:
+#    - categories
+#    - tags
+#  layouts:
+#    category: archive-taxonomy
+#    tag: archive-taxonomy
+#  permalinks:
+#    category: /categories/:name/
+#    tag: /tags/:name/
