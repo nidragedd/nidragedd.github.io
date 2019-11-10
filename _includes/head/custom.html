@@ -1,0 +1,9 @@
+<!-- start custom head snippets -->
+{% if page.tags %}
+  {% for tag in page.tags %}
+	<meta property="article:tag" content="{{ tag}}" />
+  {% endfor %}
+{% endif %}
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->

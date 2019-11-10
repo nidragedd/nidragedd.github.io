@@ -27,7 +27,7 @@ There are suggestions but we can take any dataset as soon as we explore it and f
 * Data Understanding
 * Data Preparation
 * Modeling
-Evaluation
+* Evaluation
 * Deployment
 
 I chose to use datasets from Airbnb and, as a french people, I chose Paris as the city to analyze.  

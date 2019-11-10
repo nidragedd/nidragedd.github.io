@@ -1,6 +1,6 @@
 ---
 title: "Flower image classifier"
-excerpt: "Supervised learning classification problem with neural networks and PyTorch"
+excerpt: "Image classification with neural networks and PyTorch"
 header:
   image: /assets/images/portfolio/image-classifier.jpg
   caption: "Photo by me"
@@ -18,7 +18,7 @@ tags:
   - Neural networks
   - Image classification
   - Transfer learning
-  - GPU
+  - CNN
   - Udacity
 classes: wide
 ---

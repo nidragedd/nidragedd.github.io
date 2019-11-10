@@ -1,6 +1,6 @@
 ---
 title: "Recommender system"
-excerpt: "Making recommendations with User Collaborative Filtering or Content-Based recommendation"
+excerpt: "User Collaborative Filtering or Content-Based recommendations"
 header:
   image: /assets/images/portfolio/recommender.jpg
   caption: "Photo by [Frame Harirak](https://unsplash.com/@framemily) on [**Unsplash**](https://unsplash.com/photos/Ei_lQ6kTwiI)"
