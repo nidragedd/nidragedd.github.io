@@ -103,6 +103,7 @@ This **could take a while to run** and the randomness of children creation may g
 (there are rules) so it works. But for other optimization problems, we just have a solution which is the best we have found so far with absolutely no warranty that this is the best.
 {: .small style="text-align: justify;"}
 
+## Building our own Genetic Algorithm!
 ### The algorithm parameters
 <figure style="width: 350px; margin:0 1em 0;" class="align-right">
   <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/motor_engine.jpg" alt="Motor">
@@ -132,7 +133,103 @@ In my work, I have added other parameters:
 * ***restart_after_n_generations_without_improvement***: (int) program will automatically restart if there is no improvement on _fitness_ value for best element after this number of generations.
 * ***presolving***: (boolean) if True, we can reduce the number of values to find in the puzzle by using a pencil mark approach. With easy grids, after the pencil mark has ran, everything will be solved and GA does not have to run.
 {: .small style="text-align: justify;"}
-## Let's define our genetic operations
+
+### Classes
+3 classes have been developed in this program:
+* ***Sudoku***: self-explanatory, it represents the puzzle itself
+* ***PencilMark***: a class to run the technique on a given puzzle
+* ***SudokuGA***: the processor class that contains algorithm parameters and orchestration steps
+{: .small style="text-align: justify;"}
+
+#### Sudoku class
+In my approach, to build a puzzle, we ***call the constructor by passing an array of values***:
+{: .small style="text-align: justify;"}
+```
+s = Sudoku(values_to_set)
+```
+with, for example, `values_to_set = ['0', '8', '0', '0', '0', '0', '0', '9', '0', '0', '0', '7', '5', '0', '2', '8', ....]` (81 values in case of 9x9 puzzle).
+Each "unknown" cell is represented by the character '0'.
+{: .small style="text-align: justify;"}
+The object can be pretty printed by calling the `display()` method:
+{: .small style="text-align: justify;"}
+```
+s.display()
+```
+which outputs in our example:
+{: .small style="text-align: justify;"}
+```
+ 0 8 0 | 0 0 0 | 0 9 0
+ 0 0 7 | 5 0 2 | 8 0 0
+ 6 0 0 | 8 0 7 | 0 0 5
+-------|-------|-------
+ 3 7 0 | 0 8 0 | 0 5 1
+ 2 0 0 | 0 0 0 | 0 0 8
+ 9 5 0 | 0 4 0 | 0 3 2
+-------|-------|-------
+ 8 0 0 | 1 0 4 | 0 0 9
+ 0 0 1 | 9 0 3 | 6 0 0
+ 0 4 0 | 0 0 0 | 0 2 0
+```
+The object has ***attributes (and accessors for each one) that represents the rows, the columns and the inner grids***. Those elements are computed automatically once you give the initial 
+values.  
+After initialization the Sudoku object contains 3 dicts where key is index of the row/column/grid and value is an array of elements in this row/column/grid:
+{: .small style="text-align: justify;"}
+```
+_columns = {0: [0, 0, 6, 3, 2, 9, 8, 0, 0], 1: [8, 0, 0, 7, 0, 5, 0, 0, 4], ...}
+_grids = {0: [0, 8, 0, 0, 0, 7, 6, 0, 0], 1: [0, 0, 0, 5, 0, 2, 8, 0, 7], 2: [0, 9, ...}
+_rows = {0: [0, 8, 0, 0, 0, 0, 0, 9, 0], 1: [0, 0, 7, 5, 0, 2, 8, 0, 0], ...}
+```
+We also ***keep note of what (and where) were the originally known values*** (so that later when we will want to mutate for example we cannot move a value that was known at the beginning).  
+This is also a dict where key is a couple of index for row and column and value is the originally known value.
+{: .small style="text-align: justify;"}
+```
+_fixed_values = {'[0|1]': 8, '[0|7]': 9, '[1|2]': 7, '[1|3]': 5, '[1|5]': 2, ...}
+```
+```'[0|1]': 8``` means that on the row 0, column 1 (so first row and second column) the value is fixed and it is a 8.
+{: .small style="text-align: justify;"}
+
+We have 2 different methods that fill the puzzle with some values:
+{: .small style="text-align: justify;"}
+* `fill_random()`: used when we want to generate a potential solution by just filling the blanks (this will be used later when building the first population)
+* `fill_with_grids()`: some grids are given (9 if 9x9 puzzle) and a new puzzle is built upon that (rows, columns and grids). This is used when building a _"child"_ from _"parents"_.
+{: .small style="text-align: justify;"}
+In the end 2 methods directly linked to the Genetic Algorithm aspect:
+{: .small style="text-align: justify;"}
+* `fitness()`: the scoring method (will be discussed later)
+* `swap_2_values()`: the method called by the mutation process (will be discussed later also)
+{: .small style="text-align: justify;"}
+
+#### PencilMark class
+This class is light and simple and allows us to run the pencil mark process. In the constructor, we pass the sudoku to solve:
+{: .small style="text-align: justify;"}
+```
+s = Sudoku(values_to_set)
+p = PencilMark(s)
+p.run()
+```
+Here is the Pencil mark method:
+{: .small style="text-align: justify;"}
+* each cell of the puzzle has an array of boolean values all initialized to True.
+* each of the boolean represents the digit (from 1 to N = objects size). Having the boolean set to True means that this value is allowed.
+* for each known value we put other boolean representing other digits to False in same row, column, grid
+* then we can iterate over cells and if at some position there is a single True value it means:
+	* either it is a fixed one (i.e known at the beginning)
+	* or a predetermined one (i.e there is no option that this value). In this case we can add this new found value
+* We have now potentially new guessed values and we start again and again this process until no new cell can be guessed anymore.
+{: .small style="text-align: justify;"}
+
+_The PencilMark class modifies the given sudoku._
+
+#### SudokuGA class
+This class contains all the steps to launch the Genetic Algorithm:
+{: .small style="text-align: justify;"}
+```
+sga = SudokuGA(population_size, selection_rate, random_selection_rate, nb_children, max_nb_generations,
+               mutation_rate, model_to_solve, presolving, restart_after_n_generations_without_improvement)
+sga.run()
+```
+
+## Inside SudokuGA: let's define our genetic operations
 As per the peuso-code we have seen earlier, here are the operations we have to implement and adapt to our specific problem.  
 For the rest of this section we will assume that the sudoku we have to solve is this one:
 {: .small style="text-align: justify;"}
@@ -147,17 +244,21 @@ For the rest of this section we will assume that the sudoku we have to solve is 
   <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/screen_random_generation_father.png" alt="Random generation">
   <figcaption>Fig.2: Example of one individual randomly generated</figcaption>
 </figure>
-Here we just randomly generate some 'solutions' to evaluate. If we want our algorithm to converge, we have to help it a little bit so the creation of one individual is not
-totally random: the approach is to generate a potential solution with no duplicates in grids. But of course, there can be (and for sure there are) duplicates in rows and columns.  
+Here we just randomly generate some 'solutions' to evaluate. If we want our algorithm to converge, we have to help it a little bit so the ***creation of one individual is not totally random: the approach is to generate a potential solution with no duplicates in grids***.
+But of course, there can be (and for sure there are) duplicates in rows and columns.  
 We will see just after why having no duplicates in grids is a prerequisite.
 {: style="text-align: justify;"}
-_In green: the cells with 'fixed' values that cannot be replaced by our random generation process. We can see that grids are all valid (i.e no duplicates)._
+_In green: the cells with 'fixed' values that cannot be replaced by our random generation process. We can see that grids are all valid (i.e no duplicates) whereas there are duplicates in rows or columns._
 {: .small style="text-align: justify;"}
 
 ### Ranking
-By convention, the scoring/ranking method is called _"fitness"_ but actually you can call it whatever you like.  
-In our case the _fitness_ function counts how many duplicates there are in the potential solution: how many among rows and among columns (there are no duplicates in grids because
-we have generated them without duplicates, and we pay attention to keep this always true).  
+By convention, the scoring/ranking method is called _"fitness"_ but actually you can call it whatever you like.
+{: .small style="text-align: justify;"}
+This is the most important thing to think about when dealing with GA because this will determine how we will evaluate our solutions, so which ones will be selected. A bad choice and poor
+solutions might be chosen to be parents for the next generation...leading us in the end to very bad results.  
+_So what could be a good and smart way to evaluate our sudoku?_  
+In our case the _fitness_ function counts duplicates in the potential solution: how many duplicates can be found in rows and columns overall? (there are no duplicates in grids because
+they have been generated without duplicates, and I paid attention to keep this always true).  
 So our objective is to minimize this score: the best individuals have a low fitness value (meaning there are few duplicates).
 {: style="text-align: justify;"}
 
@@ -234,7 +335,7 @@ The program has been launched with those parameters:
 * `--max-generations`: 500
 * `--restart-nb-generations`: 300
 {: .small}
-The puzzle is solved in less than one minute after 22 generations only.
+The puzzle is ***solved in less than one minute after 22 generations only***.
 
 Below is the evolution of the _fitness_ value for both our best and worst solutions over the generations. We can see that the algorithm converges well. It took it few generations
 to get out the local minima of fitness=2.  
@@ -276,7 +377,7 @@ The program has been launched with same parameters:
 * `--restart-nb-generations`: 300
 {: .small}
 
-This is more demanding for our GA but it managed to solve it after 20 minutes and around 650 generations (2 restarts)!
+This is ***more demanding for our GA but it managed to solve it after 20 minutes*** and around 650 generations (2 restarts)!
 
 Below is the evolution of the _fitness_ value over the generations. We can see that the algorithm were stuck in the local minima until the program restarted.
 Of course we can tune the `restart_after_n_generations_without_improvement` parameter value in order to decrease the waiting time but here is one of the main drawback of this kind
@@ -296,7 +397,7 @@ After 43 cells then 49 cells to find, let's try a hard one (59 cells to find). H
 </figure>
 <figure class="align-right" style="width:280px; margin:0 5em 0;">
   <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/screen_solution_to_guess_3_hard_after_pencilmark.png" alt="Hard puzzle pencil mark">
-  <figcaption>Fig.8: only 1 cell value found</figcaption>
+  <figcaption>Fig.8: pencil mark found only 1 value</figcaption>
 </figure>
 <figure class="align-center" style="width:680px; margin:0 5em 0;">
   <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/3x3-hard-01.png" alt="Hard puzzle">
@@ -306,10 +407,30 @@ After 43 cells then 49 cells to find, let's try a hard one (59 cells to find). H
   <figcaption>Fig.9: GA could not find the solution</figcaption>
 </figure>
 Unfortunately, after few hours of running, it did not manage to find the solution for this puzzle.  
-I have tried to change the way children are generated: previously 2 parents had `nb_children` together (so all children looks like their parents). I tried to randomly pick parents
-to generate all children (so more diversity) but it did not help so much.
-{: style="text-align: justify;"}
+I have tried:
+* to change the way children are generated: previously 2 parents had `nb_children` together (so all children looks like their parents). I tried to randomly pick parents to generate all children (so more diversity) but it did not help so much.
+* to change the number of children (from 4 to 5)
+* to increase the `mutation rate` to add more diversity
+* increase the `population size` to generate more potential solutions per generation
+{: .small style="text-align: justify;"}
+It did not work. **The GA did not manage to solve this hard puzzle**.
 
+## Can it solve a 4x4 puzzle grid?
+<figure class="align-center" style="width:500px;">
+  <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/screen_solution_to_guess_4x4_beginner.png" alt="Initial puzzle">
+  <figcaption>Fig.10: bigger puzzle to solve</figcaption>
+</figure>
+Still OK for _Pencil Mark_ technique, puzzle solved automatically:
+<figure class="align-center" style="width:580px;">
+  <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/4x4-01_pencil_mark.png" alt="Pencil Mark on bigger puzzle">
+  <figcaption>Fig. 11. 4x4 puzzle solved with Pencil Mark technique</figcaption>
+</figure>
+
+### Try to solve with GA!
+<figure class="align-right" style="width:580px; margin: 0 0 0 1em;">
+  <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/4x4-01_2nd_try.png" alt="GA on simple puzzle">
+</figure>
+Same as for the hard puzzle, the size of the puzzle increased the complexity of the algorithm which **did not manage to solve it**.
 
 ---
 <figure class="align-center">
@@ -320,7 +441,8 @@ to generate all children (so more diversity) but it did not help so much.
 We have **discovered the main principles of Genetic Algorithms** and how they work through a fun example with Sudoku puzzles.  
 We have also been confronted with the **common issues with such algorithms: computation time** with **no guarantee to find the solution**.  
 Moreover, in our particular case, if the solution is not found, there is little chance that we can take the best solution found as a new start: changing the remaining duplicated 
-value could violate other constraints and so the whole potential solution becomes something very far from the real solution.
+value could violate other constraints and so the whole potential solution becomes something very far from the real solution.  
+We have seen that increasing the problem complexity (4x4) could bring issues to find the solution (whereas other techniques can solve instantly).
 {: style="text-align: justify;"}
 
 Thanks for reading.  
