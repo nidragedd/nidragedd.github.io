@@ -273,7 +273,7 @@ For that we randomly choose a *'crossover point'*: my first decision was to take
 would be valid as there could be (and most of the time there would) some duplicates within grids. So I changed my mind and decided to take complete grids and we put in the child grids the 
 father's grids when they are before the crossover point and mother's grids which are after the point.
 {: style="text-align: justify;"}
-_Darker cells are the ones coming from the "mother" which is the sudoku on the left._
+_Darker cells are the ones coming from the "mother" which is the sudoku on the right._
 {: .small style="text-align: justify;"}
 
 **Note:** the child generation is typically something that we have to pay attention to when building the algorithm because if it is not relevant, our algorithm will fail to converge.  
@@ -390,7 +390,7 @@ Changing the `population` parameter value from 5000 to 10000 we can observe that
 </figure>
 
 ## How good can it be?
-After 43 cells then 49 cells to find, let's try a hard one (59 cells to find). Here, even the _Pencil Mark_ technique cannot help a lot. With that we were just able to guess 1 cell (the "9" value in the 5th grid):
+After 43 cells then 49 cells to find, let's try a hard one (59 cells to find). Here, even the _Pencil Mark_ technique cannot help a lot. With that we were just able to guess 1 cell (the "9" value, cf. fig.8):
 <figure class="align-left" style="width:280px; margin:0 0 0 5em;">
   <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/screen_solution_to_guess_3_hard.png" alt="Hard puzzle">
   <figcaption>Fig.7: hard puzzle to solve</figcaption>
@@ -439,11 +439,17 @@ Same as for the hard puzzle, the size of the puzzle increased the complexity of 
 </figure>
 ## WRAP-UP
 We have **discovered the main principles of Genetic Algorithms** and how they work through a fun example with Sudoku puzzles.  
-We have also been confronted with the **common issues with such algorithms: computation time** with **no guarantee to find the solution**.  
+We have also faced the **common issues with such algorithms: computation time** with **no guarantee to find the solution**.  
 Moreover, in our particular case, if the solution is not found, there is little chance that we can take the best solution found as a new start: changing the remaining duplicated 
 value could violate other constraints and so the whole potential solution becomes something very far from the real solution.  
 We have seen that increasing the problem complexity (4x4) could bring issues to find the solution (whereas other techniques can solve instantly).
 {: style="text-align: justify;"}
+
+Possible further improvements:
+* change the child creation method with perhaps another crossover point to mix more elements from father and mother
+* keep the parents if their fitness value is better than their child's one
+* keep best elements from previous generation when algorithm restarts
+{: .small style="text-align: justify;"}
 
 Thanks for reading.  
 Author: nidragedd
