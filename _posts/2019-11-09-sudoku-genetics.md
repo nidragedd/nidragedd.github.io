@@ -218,7 +218,8 @@ Here is the Pencil mark method:
 * We have now potentially new guessed values and we start again and again this process until no new cell can be guessed anymore.
 {: .small style="text-align: justify;"}
 
-_The PencilMark class modifies the given sudoku._
+_Note: the PencilMark class modifies the given Sudoku._
+{: .small style="text-align: justify;"}
 
 #### SudokuGA class
 This class contains all the steps to launch the Genetic Algorithm:
@@ -389,26 +390,60 @@ Changing the `population` parameter value from 5000 to 10000 we can observe that
   <figcaption>Evolution of fitness values over generations with population=5000 (left) and population=10000(right)</figcaption>
 </figure>
 
-## How good can it be?
-After 43 cells then 49 cells to find, let's try a hard one (59 cells to find). Here, even the _Pencil Mark_ technique cannot help a lot. With that we were just able to guess 1 cell (the "9" value, cf. fig.8):
+## How good can it be? Let's try with harder 9x9 puzzles!
+After 43 cells then 49 cells to find, let's try 2 hard puzzles (with respectively 57 and 59 cells to find). 
+### 57 cells to find
+_Pencil Mark_ technique is useless on this sudoku, it cannot place a single "new value"!
+<figure class="align-center" style="width:280px;">
+  <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/screen_solution_to_guess_3_hard_57.png" alt="Hard puzzle">
+  <figcaption>Fig.7: hard puzzle to solve</figcaption>
+</figure>
+
+<figure class="align-right" style="width:350px;">
+  <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/3x3-hard-02-solution.png" alt="GA on hard puzzle">
+  <figcaption>Fig. 8: hard puzzle solved with GA</figcaption>
+</figure>
+The program has been launched with same parameters:
+{: .small}
+* `--population-size`: 20000
+* `--selection-rate`: 0.25
+* `--random-selection-rate`: 0.25
+* `--children`: 4
+* `--mutation-rate`: 0.3
+* `--max-generations`: 500
+* `--restart-nb-generations`: 30
+{: .small}
+
+This is ***very demanding for our GA but it managed to solve it after 1.5 hour*** and around 550 generations (8 restarts)!  
+Here the strategy for children generation has changed a little: for each child parents were randomly chosen (instead of each couple father/mother giving birth to `nb_children` children).
+_Note that I did not try to launch it with the previous strategy so maybe it works as well._
+{: style="text-align: justify;"}
+
+<figure class="align-center" style="width:640px;">
+  <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/3x3-hard-02-fitness.png" alt="GA on hard puzzle">
+  <figcaption>Fig. 9: fitness values over generations with population=20000</figcaption>
+</figure>
+
+### 59 cells to find
+Agin, _Pencil Mark_ technique cannot help so much. With that we were just able to guess 1 cell (the "9" value, cf. fig.11):
 <figure class="align-left" style="width:280px; margin:0 0 0 5em;">
   <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/screen_solution_to_guess_3_hard.png" alt="Hard puzzle">
-  <figcaption>Fig.7: hard puzzle to solve</figcaption>
+  <figcaption>Fig.10: hard puzzle to solve</figcaption>
 </figure>
 <figure class="align-right" style="width:280px; margin:0 5em 0;">
   <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/screen_solution_to_guess_3_hard_after_pencilmark.png" alt="Hard puzzle pencil mark">
-  <figcaption>Fig.8: pencil mark found only 1 value</figcaption>
+  <figcaption>Fig.11: pencil mark found only 1 value</figcaption>
 </figure>
 <figure class="align-center" style="width:680px; margin:0 5em 0;">
   <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/3x3-hard-01.png" alt="Hard puzzle">
 </figure>
 <figure class="align-center" style="width:680px; margin:0 5em 0;">
   <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/3x3-hard-01_2.png" alt="Hard puzzle">
-  <figcaption>Fig.9: GA could not find the solution</figcaption>
+  <figcaption>Fig.12: GA could not find the solution</figcaption>
 </figure>
 Unfortunately, after few hours of running, it did not manage to find the solution for this puzzle.  
 I have tried:
-* to change the way children are generated: previously 2 parents had `nb_children` together (so all children looks like their parents). I tried to randomly pick parents to generate all children (so more diversity) but it did not help so much.
+* both strategies for children generation: `nb_children` per couple or all children with random parents
 * to change the number of children (from 4 to 5)
 * to increase the `mutation rate` to add more diversity
 * increase the `population size` to generate more potential solutions per generation
