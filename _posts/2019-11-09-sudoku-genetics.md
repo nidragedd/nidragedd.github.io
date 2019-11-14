@@ -391,7 +391,7 @@ Changing the `population` parameter value from 5000 to 10000 we can observe that
 </figure>
 
 ## How good can it be? Let's try with harder 9x9 puzzles!
-After 43 cells then 49 cells to find, let's try 2 hard puzzles (with respectively 57 and 59 cells to find). 
+After 43 cells then 49 cells to find, I will try to solve 2 harder puzzles (with respectively 57 and 59 cells to find). 
 ### 57 cells to find
 _Pencil Mark_ technique is useless on this sudoku, it cannot place a single "new value"!
 <figure class="align-center" style="width:280px;">
@@ -403,7 +403,7 @@ _Pencil Mark_ technique is useless on this sudoku, it cannot place a single "new
   <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/3x3-hard-02-solution.png" alt="GA on hard puzzle">
   <figcaption>Fig. 8: hard puzzle solved with GA</figcaption>
 </figure>
-The program has been launched with same parameters:
+The program has been launched with those parameters:
 {: .small}
 * `--population-size`: 20000
 * `--selection-rate`: 0.25
@@ -441,14 +441,51 @@ Agin, _Pencil Mark_ technique cannot help so much. With that we were just able t
   <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/3x3-hard-01_2.png" alt="Hard puzzle">
   <figcaption>Fig.12: GA could not find the solution</figcaption>
 </figure>
-Unfortunately, after few hours of running, it did not manage to find the solution for this puzzle.  
+Unfortunately, after few hours of running (cf. fig. 12), it did not manage to find the solution for this puzzle.  
 I have tried:
 * both strategies for children generation: `nb_children` per couple or all children with random parents
 * to change the number of children (from 4 to 5)
 * to increase the `mutation rate` to add more diversity
 * increase the `population size` to generate more potential solutions per generation
 {: .small style="text-align: justify;"}
-It did not work. **The GA did not manage to solve this hard puzzle**.
+It did not work. ***In this configuration, the GA did not manage to solve this hard puzzle***.  
+
+So I tried another change in the child creation process: instead of taking randomly only one _crossover point_ I chose:
+{: style="text-align: justify;"}
+* _m_, a random number of grids to take from the mother (from 1 to 8 - again to ensure having elements from both parents)
+* _m_ randomly chosen grids ids.
+{: .small style="text-align: justify;"}
+Then, to build the child, when iterating over grid, if the grid id is one of the mother it is taken from this sudoku otherwise it comes from the father.
+{: style="text-align: justify;"}
+Example for a better understanding: imagine here that _m_ is 4 and that the _m_ random values are `[0, 2, 3, 6]` (_remember that elements follow 0-based indexing_). That would give:
+{: .small style="text-align: justify;"}
+<figure style="width:500px;" class="align-center">
+  <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/screen_parents_v2.png" alt="Child creation">
+  <figcaption>Fig.13: new way to create a child from 2 parents</figcaption>
+</figure>
+
+<figure class="align-right" style="width:550px;">
+  <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/3x3-hard-01-solution.png" alt="GA on hard puzzle">
+  <figcaption>Fig. 14: hard puzzle solved with GA</figcaption>
+</figure>
+The program has been launched with same parameters:
+{: .small}
+* `--population-size`: 20000
+* `--selection-rate`: 0.25
+* `--random-selection-rate`: 0.25
+* `--children`: 4
+* `--mutation-rate`: 0.3
+* `--max-generations`: 500
+* `--restart-nb-generations`: 30
+{: .small}
+
+**It took less than 40 minutes to find one solution!**  
+See best and worst _fitness_ values below:
+{: style="text-align: justify;"}
+<figure class="align-center" style="width:640px;">
+  <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/3x3-hard-01-fitness.png" alt="GA on hard puzzle">
+  <figcaption>Fig. 15: fitness values over generations with population=20000</figcaption>
+</figure>
 
 ## Can it solve a 4x4 puzzle grid?
 <figure class="align-center" style="width:500px;">
