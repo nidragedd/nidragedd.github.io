@@ -487,6 +487,10 @@ See best and worst _fitness_ values below:
   <figcaption>Fig. 15: fitness values over generations with population=20000</figcaption>
 </figure>
 
+_This new child generation method has been tried on the previous sudoku and results were highly improved as well: it tooks 36 minutes instead of 1.5 hour, we can conclude that this method
+is better so we can keep it_.
+{: .small style="text-align: justify;"}
+
 ## Can it solve a 4x4 puzzle grid?
 <figure class="align-center" style="width:500px;">
   <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/screen_solution_to_guess_4x4_beginner.png" alt="Initial puzzle">
