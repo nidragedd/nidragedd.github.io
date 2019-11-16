@@ -128,7 +128,7 @@ Here are the common parameters that we can set/tune when dealing with GA:
 	</ul>
 </div>
 
-In my work, I have added other parameters:
+I have added other parameters:
 * ***model_to_solve***: (string) name of the .txt file that contains the sudoku problem to solve.
 * ***restart_after_n_generations_without_improvement***: (int) program will automatically restart if there is no improvement on _fitness_ value for best element after this number of generations.
 * ***presolving***: (boolean) if True, we can reduce the number of values to find in the puzzle by using a pencil mark approach. With easy grids, after the pencil mark has ran, everything will be solved and GA does not have to run.
@@ -138,11 +138,11 @@ In my work, I have added other parameters:
 3 classes have been developed in this program:
 * ***Sudoku***: self-explanatory, it represents the puzzle itself
 * ***PencilMark***: a class to run the technique on a given puzzle
-* ***SudokuGA***: the processor class that contains algorithm parameters and orchestration steps
+* ***SudokuGA***: the processor class that contains GA orchestration steps
 {: .small style="text-align: justify;"}
 
 #### Sudoku class
-In my approach, to build a puzzle, we ***call the constructor by passing an array of values***:
+To build a puzzle, we ***call the constructor by passing an array of values***:
 {: .small style="text-align: justify;"}
 ```
 s = Sudoku(values_to_set)
@@ -170,8 +170,7 @@ which outputs in our example:
  0 0 1 | 9 0 3 | 6 0 0
  0 4 0 | 0 0 0 | 0 2 0
 ```
-The object has ***attributes (and accessors for each one) that represents the rows, the columns and the inner grids***. Those elements are computed automatically once you give the initial 
-values.  
+The object has ***attributes to represent rows, columns and inner grids***. Those elements are computed automatically once you give the initial  values.  
 After initialization the Sudoku object contains 3 dicts where key is index of the row/column/grid and value is an array of elements in this row/column/grid:
 {: .small style="text-align: justify;"}
 ```
@@ -179,7 +178,7 @@ _columns = {0: [0, 0, 6, 3, 2, 9, 8, 0, 0], 1: [8, 0, 0, 7, 0, 5, 0, 0, 4], ...}
 _grids = {0: [0, 8, 0, 0, 0, 7, 6, 0, 0], 1: [0, 0, 0, 5, 0, 2, 8, 0, 7], 2: [0, 9, ...}
 _rows = {0: [0, 8, 0, 0, 0, 0, 0, 9, 0], 1: [0, 0, 7, 5, 0, 2, 8, 0, 0], ...}
 ```
-We also ***keep note of what (and where) were the originally known values*** (so that later when we will want to mutate for example we cannot move a value that was known at the beginning).  
+We also ***keep note of what and where were the originally known values*** (so that mutation process cannot move a value that was given).  
 This is also a dict where key is a couple of index for row and column and value is the originally known value.
 {: .small style="text-align: justify;"}
 ```
@@ -190,13 +189,13 @@ _fixed_values = {'[0|1]': 8, '[0|7]': 9, '[1|2]': 7, '[1|3]': 5, '[1|5]': 2, ...
 
 We have 2 different methods that fill the puzzle with some values:
 {: .small style="text-align: justify;"}
-* `fill_random()`: used when we want to generate a potential solution by just filling the blanks (this will be used later when building the first population)
+* `fill_random()`: used when building the first population by just filling the blanks
 * `fill_with_grids()`: some grids are given (9 if 9x9 puzzle) and a new puzzle is built upon that (rows, columns and grids). This is used when building a _"child"_ from _"parents"_.
 {: .small style="text-align: justify;"}
-In the end 2 methods directly linked to the Genetic Algorithm aspect:
+In the end 2 methods directly linked to the Genetic Algorithm aspect that will be discussed later:
 {: .small style="text-align: justify;"}
-* `fitness()`: the scoring method (will be discussed later)
-* `swap_2_values()`: the method called by the mutation process (will be discussed later also)
+* `fitness()`: the scoring method
+* `swap_2_values()`: the method called by the mutation process
 {: .small style="text-align: justify;"}
 
 #### PencilMark class
@@ -266,7 +265,7 @@ So our objective is to minimize this score: the best individuals have a low fitn
 ### Create a child
 <figure style="width:500px; margin:0 1em 0;" class="align-right">
   <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/screen_parents.png" alt="Child creation">
-  <figcaption>Fig.3: create a child from 2 parents</figcaption>
+  <figcaption>Fig.3: first method used to create a child from 2 parents</figcaption>
 </figure>
 Two potential solutions are chosen randomly and generate n children (remember that _n_ is a parameter to set).  
 What we have to do is to take some elements from the father and others from the mother. But how?<br /><br />
@@ -307,25 +306,21 @@ We can observe that here the evolution process works, i.e the child has a lower 
 {: style="text-align: justify;"}
 ---
 ## Enough talking, let's try it!
-Let's start with this sudoku which contains 43 values to find:
+### Start with easy puzzles
+Let's start with easy puzzles that contains 43 and 49 values to find:
 {: .small style="text-align: justify;"}
-<figure class="align-center" style="width:280px;">
-  <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/screen_solution_to_guess_2.png" alt="Initial puzzle">
-  <figcaption>Fig.5: another puzzle we have to solve</figcaption>
+<figure class="align-center" style="width:650px; margin: 0 auto;">
+  <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/easy_9x9.png" alt="GA on simple puzzle">
+  <figcaption>Fig.5: puzzles with 49 (left) and 43 (right) values to find</figcaption>
+</figure>
+Applying **_Pencil Mark_** technique solves them instantly:
+{: .small style="text-align: justify;"}
+<figure class="align-center" style="width:850px; margin: 0 auto;">
+  <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/easy_9x9_pencil_marks.png" alt="GA on simple puzzle">
+  <figcaption>Fig.6: Pencil Mark applied on those puzzles</figcaption>
 </figure>
 
-### Try the Pencil Mark
-This is an easy one and if we use the _Pencil Mark_ the puzzle is solved automatically almost instantly:
-<figure class="align-center" style="width:580px;">
-  <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/3x3-easy-03_using_pencil_mark.png" alt="Pencil Mark on simple puzzle">
-  <figcaption>Puzzle solved with Pencil Mark technique</figcaption>
-</figure>
-
-### Solve with GA!
-<figure class="align-right" style="width:580px;">
-  <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/3x3-easy-03_no_pencil_mark.png" alt="GA on simple puzzle">
-  <figcaption>Puzzle solved with GA</figcaption>
-</figure>
+#### Solve with GA!
 The program has been launched with those parameters:
 {: .small}
 * `--population-size`: 5000
@@ -333,120 +328,85 @@ The program has been launched with those parameters:
 * `--random-selection-rate`: 0.25
 * `--children`: 4
 * `--mutation-rate`: 0.25
-* `--max-generations`: 500
-* `--restart-nb-generations`: 300
 {: .small}
-The puzzle is ***solved in less than one minute after 22 generations only***.
 
-Below is the evolution of the _fitness_ value for both our best and worst solutions over the generations. We can see that the algorithm converges well. It took it few generations
-to get out the local minima of fitness=2.  
-Changing the `population` parameter value from 5000 to 10000 we can observe that the number of generations decreased:
-{: style="text-align: justify;"}
-<figure class="align-center" style="width:800px;">
+<figure class="align-center" style="width:900px; margin: 0 auto;">
+  <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/easy_9x9_no_pencil_marks.png" alt="GA on simple puzzle">
+  <figcaption>Fig. 7: Puzzles solved with GA</figcaption>
+</figure>
+
+The puzzle on the left (49 guess) is ***more demanding for our GA but it managed to solve it after 20 minutes*** and around 650 generations (2 restarts) whereas the second puzzle is ***solved in less than one minute after 22 generations only!***
+
+Below are figures showing the evolution of _fitness_ value for both best and worst solutions over the generations. We can see that the algorithm converges well. 
+
+#### Puzzle with 43 guess
+<figure class="align-center" style="width:800px; margin: 0 auto;">
   <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/3x3-easy-03_generations-5000-10000.png" alt="GA on simple puzzle">
-  <figcaption>Evolution of fitness values over generations with population=5000 (left) and population=10000(right)</figcaption>
+  <figcaption>Fig. 8: Evolution of fitness values over generations with population=5000 (left) and population=10000(right)</figcaption>
 </figure>
+It took it few generations to get out the local minima of fitness=2.  
+Changing the `population` parameter value from 5000 to 10000 we can observe that the number of generations decreased but not so much.
+{: style="text-align: justify;"}
 
-## Let's challenge that a little bit!
-The previous sudoku was pretty easy with 43 cells to find, let's take the one from the fig. 1 which has 49 cells to find:
-{: .small style="text-align: justify;"}
-<figure class="align-center" style="width:280px;">
-  <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/screen_solution_sample_to_guess.png" alt="Initial puzzle">
-  <figcaption>Fig.6: a more complicated puzzle we have to solve</figcaption>
+#### Puzzle with 49 guess
+<figure class="align-center" style="width:800px; margin: 0 auto;">
+  <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/3x3-easy-02_generations-5000-10000.png" alt="GA on simple puzzle">
+  <figcaption>Fig. 9: Evolution of fitness values over generations with population=5000 (left) and population=10000(right)</figcaption>
 </figure>
-
-### Use Pencil Mark
-This is still an easy one for _Pencil Mark_ technique so the puzzle is also solved automatically:
-<figure class="align-center" style="width:580px;">
-  <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/3x3-easy-02_using_pencil_mark.png" alt="Pencil Mark on simple puzzle">
-  <figcaption>Puzzle solved with Pencil Mark technique</figcaption>
-</figure>
-
-### Solve with GA!
-<figure class="align-right" style="width:580px;">
-  <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/3x3-easy-02_no_pencil_mark.png" alt="GA on simple puzzle">
-  <figcaption>Puzzle solved with GA</figcaption>
-</figure>
-The program has been launched with same parameters:
-{: .small}
-* `--population-size`: 5000
-* `--selection-rate`: 0.25
-* `--random-selection-rate`: 0.25
-* `--children`: 4
-* `--mutation-rate`: 0.25
-* `--max-generations`: 500
-* `--restart-nb-generations`: 300
-{: .small}
-
-This is ***more demanding for our GA but it managed to solve it after 20 minutes*** and around 650 generations (2 restarts)!
-
-Below is the evolution of the _fitness_ value over the generations. We can see that the algorithm were stuck in the local minima until the program restarted.
+We can see that the algorithm were stuck in the local minima until the program restarted.
 Of course we can tune the `restart_after_n_generations_without_improvement` parameter value in order to decrease the waiting time but here is one of the main drawback of this kind
 of algorithm: it can take a while to figure out the solution. Note that here it is total luck as the restart does not keep the best elements from the previous runs (this could be one of the further improvements).  
-Changing the `population` parameter value from 5000 to 10000 we can observe that the number of generations decreased but there were still one restart:
+Changing the `population` parameter value from 5000 to 10000 we can observe that the number of generations decreased but there were still one restart.
 {: style="text-align: justify;"}
-<figure class="align-center" style="width:800px;">
-  <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/3x3-easy-02_generations-5000-10000.png" alt="GA on simple puzzle">
-  <figcaption>Evolution of fitness values over generations with population=5000 (left) and population=10000(right)</figcaption>
-</figure>
+
 
 ## How good can it be? Let's try with harder 9x9 puzzles!
-After 43 cells then 49 cells to find, I will try to solve 2 harder puzzles (with respectively 57 and 59 cells to find). 
-### 57 cells to find
-_Pencil Mark_ technique is useless on this sudoku, it cannot place a single "new value"!
-<figure class="align-center" style="width:280px;">
-  <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/screen_solution_to_guess_3_hard_57.png" alt="Hard puzzle">
-  <figcaption>Fig.7: hard puzzle to solve</figcaption>
+I will try to solve 2 harder puzzles with respectively 57 and 59 cells to find.
+{: .small style="text-align: justify;"}
+<figure class="align-center" style="width:650px; margin: 0 auto;">
+  <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/hard_9x9.png" alt="Hard puzzles">
+  <figcaption>Fig.10: puzzles with 57 (left) and 59 (right) values to find</figcaption>
+</figure>
+Applying **_Pencil Mark_** technique cannot help so much (on the left, it cannot place a single "new value"):
+{: .small style="text-align: justify;"}
+<figure class="align-center" style="width:650px; margin: 0 auto;">
+  <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/hard_9x9_pencil_mark.png" alt="Pencil Mark on hard puzzle">
+  <figcaption>Fig.11: Pencil Mark applied on those puzzles</figcaption>
 </figure>
 
-<figure class="align-right" style="width:350px;">
-  <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/3x3-hard-02-solution.png" alt="GA on hard puzzle">
-  <figcaption>Fig. 8: hard puzzle solved with GA</figcaption>
-</figure>
+#### Solve with GA!
 The program has been launched with those parameters:
 {: .small}
 * `--population-size`: 20000
 * `--selection-rate`: 0.25
 * `--random-selection-rate`: 0.25
 * `--children`: 4
-* `--mutation-rate`: 0.3
-* `--max-generations`: 500
+* `--mutation-rate`: 0.25
 * `--restart-nb-generations`: 30
 {: .small}
+Changes are on the `population_size` and the `restart-nb-generations` (to decrease waiting time as it might restart several times).
+{: style="text-align: justify;"}
 
+#### Puzzle with 57 guess
+<figure class="align-center" style="width:900px; margin: 0 auto;">
+  <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/hard_57_solution_generations.png" alt="GA on hard puzzle">
+  <figcaption>Fig. 12: hard puzzle solved with GA</figcaption>
+</figure>
 This is ***very demanding for our GA but it managed to solve it after 1.5 hour*** and around 550 generations (8 restarts)!  
 Here the strategy for children generation has changed a little: for each child parents were randomly chosen (instead of each couple father/mother giving birth to `nb_children` children).
 _Note that I did not try to launch it with the previous strategy so maybe it works as well._
 {: style="text-align: justify;"}
 
-<figure class="align-center" style="width:640px;">
-  <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/3x3-hard-02-fitness.png" alt="GA on hard puzzle">
-  <figcaption>Fig. 9: fitness values over generations with population=20000</figcaption>
+#### Puzzle with 59 guess
+<figure class="align-center" style="width:880px; margin: 0 auto;">
+  <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/3x3-hard-not_found.png" alt="Hard puzzle">
+  <figcaption>Fig.13: GA could not find the solution</figcaption>
 </figure>
-
-### 59 cells to find
-Agin, _Pencil Mark_ technique cannot help so much. With that we were just able to guess 1 cell (the "9" value, cf. fig.11):
-<figure class="align-left" style="width:280px; margin:0 0 0 5em;">
-  <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/screen_solution_to_guess_3_hard.png" alt="Hard puzzle">
-  <figcaption>Fig.10: hard puzzle to solve</figcaption>
-</figure>
-<figure class="align-right" style="width:280px; margin:0 5em 0;">
-  <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/screen_solution_to_guess_3_hard_after_pencilmark.png" alt="Hard puzzle pencil mark">
-  <figcaption>Fig.11: pencil mark found only 1 value</figcaption>
-</figure>
-<figure class="align-center" style="width:680px; margin:0 5em 0;">
-  <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/3x3-hard-01.png" alt="Hard puzzle">
-</figure>
-<figure class="align-center" style="width:680px; margin:0 5em 0;">
-  <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/3x3-hard-01_2.png" alt="Hard puzzle">
-  <figcaption>Fig.12: GA could not find the solution</figcaption>
-</figure>
-Unfortunately, after few hours of running (cf. fig. 12), it did not manage to find the solution for this puzzle.  
-I have tried:
+Unfortunately, after few hours of running, it did not manage to find the solution for this puzzle. I have tried:
 * both strategies for children generation: `nb_children` per couple or all children with random parents
 * to change the number of children (from 4 to 5)
 * to increase the `mutation rate` to add more diversity
-* increase the `population size` to generate more potential solutions per generation
+* to increase the `population size` to generate more potential solutions per generation
 {: .small style="text-align: justify;"}
 It did not work. ***In this configuration, the GA did not manage to solve this hard puzzle***.  
 
@@ -455,38 +415,22 @@ So I tried another change in the child creation process: instead of taking rando
 * _m_, a random number of grids to take from the mother (from 1 to 8 - again to ensure having elements from both parents)
 * _m_ randomly chosen grids ids.
 {: .small style="text-align: justify;"}
-Then, to build the child, when iterating over grid, if the grid id is one of the mother it is taken from this sudoku otherwise it comes from the father.
+Then, to build the child, when iterating over grids, if the grid id is one of the mother it is taken from this sudoku otherwise it comes from the father.
 {: style="text-align: justify;"}
-Example for a better understanding: imagine here that _m_ is 4 and that the _m_ random values are `[0, 2, 3, 6]` (_remember that elements follow 0-based indexing_). That would give:
+Example for a better understanding: imagine here that _m_ is randomly set 4 and that the _m_ random values are `[0, 2, 3, 6]` (_remember that elements follow 0-based indexing_). That would give:
 {: .small style="text-align: justify;"}
 <figure style="width:500px;" class="align-center">
   <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/screen_parents_v2.png" alt="Child creation">
-  <figcaption>Fig.13: new way to create a child from 2 parents</figcaption>
+  <figcaption>Fig.14: new way to create a child from 2 parents</figcaption>
 </figure>
 
-<figure class="align-right" style="width:550px;">
-  <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/3x3-hard-01-solution.png" alt="GA on hard puzzle">
-  <figcaption>Fig. 14: hard puzzle solved with GA</figcaption>
+#### Does it work?
+<figure class="align-center" style="width:900px;">
+  <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/hard_59_solution_generations.png" alt="GA on hard puzzle">
+  <figcaption>Fig. 15: hard puzzle solved with GA</figcaption>
 </figure>
-The program has been launched with same parameters:
-{: .small}
-* `--population-size`: 20000
-* `--selection-rate`: 0.25
-* `--random-selection-rate`: 0.25
-* `--children`: 4
-* `--mutation-rate`: 0.3
-* `--max-generations`: 500
-* `--restart-nb-generations`: 30
-{: .small}
-
 **It took less than 40 minutes to find one solution!**  
-See best and worst _fitness_ values below:
 {: style="text-align: justify;"}
-<figure class="align-center" style="width:640px;">
-  <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/3x3-hard-01-fitness.png" alt="GA on hard puzzle">
-  <figcaption>Fig. 15: fitness values over generations with population=20000</figcaption>
-</figure>
-
 _This new child generation method has been tried on the previous sudoku and results were highly improved as well: it tooks 36 minutes instead of 1.5 hour, we can conclude that this method
 is better so we can keep it_.
 {: .small style="text-align: justify;"}
@@ -494,19 +438,19 @@ is better so we can keep it_.
 ## Can it solve a 4x4 puzzle grid?
 <figure class="align-center" style="width:500px;">
   <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/screen_solution_to_guess_4x4_beginner.png" alt="Initial puzzle">
-  <figcaption>Fig.10: bigger puzzle to solve</figcaption>
+  <figcaption>Fig.16: bigger puzzle to solve</figcaption>
 </figure>
 Still OK for _Pencil Mark_ technique, puzzle solved automatically:
 <figure class="align-center" style="width:580px;">
   <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/4x4-01_pencil_mark.png" alt="Pencil Mark on bigger puzzle">
-  <figcaption>Fig. 11. 4x4 puzzle solved with Pencil Mark technique</figcaption>
+  <figcaption>Fig. 17. 4x4 puzzle solved with Pencil Mark technique</figcaption>
 </figure>
 
 ### Try to solve with GA!
 <figure class="align-right" style="width:580px; margin: 0 0 0 1em;">
   <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20191110/4x4-01_2nd_try.png" alt="GA on simple puzzle">
 </figure>
-Same as for the hard puzzle, the size of the puzzle increased the complexity of the algorithm which **did not manage to solve it**.
+The size of the puzzle increased the complexity of the algorithm which **did not manage to solve it**.
 
 ---
 <figure class="align-center">
