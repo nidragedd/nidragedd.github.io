@@ -66,7 +66,8 @@ gallery3:
     image_path: /assets/images/20200215/results_ko/thumbs/tst_00000026.jpg
     alt: "test image"
 classes: wide
-share: True
+share: true
+comments: true
 ---
 > _Few days ago I found this [tensorflow medium blog post](https://medium.com/tensorflow/training-and-serving-a-realtime-mobile-object-detector-in-30-minutes-with-cloud-tpus-b78971cf1193) 
 saying that it was possible to create your own "realtime mobile object detector in 30 minutes"._  

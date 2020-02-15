@@ -12,6 +12,7 @@ tags:
   - Udacity
 classes: wide
 share: True
+comments: true
 ---
 
 <figure style="width: 300px; margin:0 1em 0 0;" class="align-left">

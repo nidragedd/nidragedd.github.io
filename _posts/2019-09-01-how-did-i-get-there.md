@@ -9,6 +9,7 @@ tags:
   - sharing
 classes: wide
 share: True
+comments: true
 ---
 ## Why this post?
 <figure style="width: 400px" class="align-left">

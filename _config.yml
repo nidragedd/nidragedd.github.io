@@ -185,3 +185,16 @@ analytics:
   google:
     tracking_id: "UA-158591791-1"
     anonymize_ip: true # false by default
+
+comments:
+  provider  : "staticman_v2"
+  staticman:
+    branch    : "master"
+    endpoint  : https://dev.staticman.net/v3/entry/github/
+
+reCaptcha:
+    enabled: true
+    siteKey: "6LcQL9kUAAAAADDGJGDkFidbYbwxzR_DUHg9PJfu"
+    # Encrypt reCaptcha secret key using Staticman /encrypt endpoint
+    # For more information, https://staticman.net/docs/encryption
+    secret: "w6JWHe8ysWQgqnMjoPxvJKHR+uq9QDuy9YWpQr6XaS7SKqg2P7Ok21l9Uz0DWqhIMjeX4kwwIiqv5/ns8uTf4xF6zJ+xpShzbPBk93gzgbSlY3ybXaDKE/Z5UHn3xGoAc/VgrM3VfQtr0HxQMeq6WbGilGkYyp7oaulbup1O6Ak="

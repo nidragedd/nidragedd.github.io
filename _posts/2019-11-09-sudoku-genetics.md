@@ -8,6 +8,7 @@ tags:
   - Artificial Intelligence
 classes: wide
 share: True
+comments: true
 ---
 > _A long time ago (no, not in a galaxy far far away, but almost), one of my best friends told me about genetic algorithms and explained to me globally how they work. I forgot about it until I decided to learn Python.  
 As I was looking for both an interesting and challenging topic to learn the language, I remembered this idea and decided to reuse it._
