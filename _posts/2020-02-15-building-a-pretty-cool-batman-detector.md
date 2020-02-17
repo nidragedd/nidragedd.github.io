@@ -262,7 +262,7 @@ I will also give a try to a SSD with a Resnet backbone as it is a good trade-off
 Before launching the training there are 2 left things to do:
 1. As explained in the [Tensorflow Object Detection API official documentation](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/using_your_own_dataset.md),
 expected input is for data is .tfrecord. We then have to convert our XML files to match the expected format.
-Fortunately, in the [step-by-step guide](https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/training.html#), the author has already done the job and is gracefully sharing his code.
+Fortunately, in the [step-by-step guide](https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/training.html#), the author has already done the job and is gracefully sharing his code[^6].
 2. We have to configure the `pipeline.config` file corresponding to our chosen model in order to specify some values:
 * how many classes we have to detect?
 * where are train and validation datasets?
@@ -285,12 +285,37 @@ I went with the third option. What is really cool with Colab (apart the fact tha
 * Save and export trained model into Tensorflow [SavedModel format](https://www.tensorflow.org/guide/saved_model)
 {: .small style="text-align: justify;"}
 
-I trained for 2000 steps for the Resnet (~4.5 hours) and 3500 steps for the MobileNet (~ 4 hours). Training dataset contains around 400 images and validation one around 80.
+I trained for 2000 steps for the Resnet (~4.5 hours) and 3500 steps for the MobileNet (~4 hours). Training dataset contains around 400 images and validation one around 80.
+{: style="text-align: justify;"}
+For this training task, I have used the train.py script that is already provided within `tensorflow/models/research/object_detection/legacy` folder. This executable is used to train 
+DetectionModels. There are two ways of configuring the training job. I have used the one with the single pipeline_pb2.TrainEvalPipelineConfig configuration file that
+can be specified as command argument `--pipeline_config_path`:
+{: style="text-align: justify;"}
+Example usage:
+```
+    ./train \
+        --logtostderr \
+        --train_dir=path/to/train_dir \
+        --pipeline_config_path=pipeline_config.pbtxt
+```
+
 
 <figure style="width:700px; margin-top:0;" class="align-center">
   <img src="{{ site.url }}{{ site.baseurl }}/assets/images/20200215/colab_training.png" alt="Training on colab">
   <figcaption>Training made on Google Colab</figcaption>
 </figure>
+
+Once the model has been trained for the number of steps specified or once you are satisfied with the loss metric, it is possible to export the training into a frozen graph, again with an
+already provided tool. To run it, all we have to do is to give in our chosen checkpoint and our pipeline config and wherever we want the inference graph to be stored.  
+For example:
+{: style="text-align: justify;"}
+```
+python3 export_inference_graph.py \
+    --input_type image_tensor \
+    --pipeline_config_path training/YOUR_CONFIG_FILE.config \
+    --trained_checkpoint_prefix training/YOUR_CHECKPOINT \
+    --output_directory YOUR_OUTPUT_DIR
+```
 
 #### Step 5: test the model
 This is where I had more troubles because Google researchers have published this API and examples with the ***1.12*** version of Tensorflow. 
@@ -354,11 +379,42 @@ Those results below are not bad but they could have been better (Robin or Joker 
 {: style="text-align: justify;"}
 {% include gallery id="gallery2" caption="Not so perfect detections with **SSD Resnet50 detector model**" %}
 
-Finally, no AI being perfect, here are some pictures the model in which was not able to detect something:
+Finally, no AI being perfect, here are some pictures in which the model was not able to detect something:
 {: style="text-align: justify;"}
-{% include gallery id="gallery3" caption="No detections with **SSD Resnet50 detector model**" %}
+{% include gallery id="gallery3" caption="No detection with **SSD Resnet50 detector model**" %}
 
 ## BONUS: realtime Batman Detector mobile app
+### Transform into TFLite format
+To be able to use the model on the phone within an app, there is one step more to do: convert the graph into [TFLite](https://www.tensorflow.org/lite) format. There are a lot of
+examples that does that by running _TOCO converter_ with the _Bazel compiler_ tool. I did not want to go into this kind of stuff so I made it with 2 steps:
+{: style="text-align: justify;"}
+* Build a TensorFlow frozen graph with compatible ops that we can use with TensorFlow Lite:  
+
+```
+python3 export_tflite_ssd_graph.py \
+    --pipeline_config_path training/YOUR_CONFIG_FILE.config \
+    --trained_checkpoint_prefix training/YOUR_CHECKPOINT \
+    --output_directory YOUR_OUTPUT_DIR \
+	--add_postprocessing_op=true
+```
+
+* And then use the TFLiteConverter provided within Tensorflow:  
+
+```python
+# To avoid installing and using Bazel and TOCO...
+# Those names are given here: https://medium.com/tensorflow/training-and-serving-a-realtime-mobile-object-detector-in-30-minutes-with-cloud-tpus-b78971cf1193
+input_arrays = ["normalized_input_image_tensor"]
+output_arrays = ['TFLite_Detection_PostProcess', 'TFLite_Detection_PostProcess:1', 'TFLite_Detection_PostProcess:2', 'TFLite_Detection_PostProcess:3']
+
+converter = TFLiteConverter.from_frozen_graph(graph_def_file, input_arrays, output_arrays, input_shapes={"normalized_input_image_tensor": [1, 300, 300, 3]})
+converter.inference_type = tensorflow.lite.constants.QUANTIZED_UINT8
+converter.quantized_input_stats = {input_arrays[0] : (128, 128)}  # mean, std_dev
+converter.allow_custom_ops = True
+tflite_model = converter.convert()
+open(saved_tflite_model_name, "wb").write(tflite_model)
+```
+
+### Use it within the app
 Once converted into Tensorflow Lite format optimized to run low-latency, I made small changes to the [Tensorflow Object Detection Android demo](https://github.com/tensorflow/examples/tree/master/lite/examples/object_detection/android),
 mainly to use my model and to build a _darker_ theme.  
 Here is a video of the app running on my phone and tried on several stuff at home: my son's toy, a big DC Comics picture and even on one of my comic book.  
@@ -400,3 +456,4 @@ Author: nidragedd
 [^3]: [pyimagesearch: object detection with SSD300](https://www.pyimagesearch.com/2017/09/11/object-detection-with-deep-learning-and-opencv)
 [^4]: [pyimagesearch: object detection with YOLO](https://www.pyimagesearch.com/2018/11/12/yolo-object-detection-with-opencv)
 [^5]: [Another medium post on SSD multibox detection](https://medium.com/@jonathan_hui/ssd-object-detection-single-shot-multibox-detector-for-real-time-processing-9bd8deac0e06)
+[^6]: [Creating Tensorflow .TFRecords elements](https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/training.html#creating-tensorflow-records)
