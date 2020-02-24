@@ -102,7 +102,7 @@ So far in Object Detection, there are 3 main approaches:
   <figcaption>SSD, R-CNN and YOLO principles - <a href="https://arxiv.org/pdf/1611.10012.pdf" target="_blank">SSD R-CNN source</a> and <a href="https://arxiv.org/abs/1506.02640" target="_blank">YOLO</a></figcaption>
 </figure>
 
-Main difference is that ***Single Shot Detectors (SSDs) and YOLO use a one-stage detector strategy*** whereas the ***R-CNN*** ones ***have two stages*** (some regions of intereset are first proposed and then, for each one, there is an image classification step through a CNN).  
+Main difference is that ***Single Shot Detectors (SSDs) and YOLO use a one-stage detector strategy*** whereas the ***R-CNN*** ones ***have two stages*** (some regions of interest are first proposed and then, for each one, there is an image classification step through a CNN).  
 Inference on the former is then much quicker but accuracy is often higher with the latter.  
 {: style="text-align: justify;"}
 In the end it is a trade-off between speed and accuracy, it depends on the business needs.  
@@ -211,7 +211,7 @@ so on that are working hard every day to increase precision and beat SOTA. Let's
 We can instead use their trained models and specialize them on a similar task. This works very well for images because models have been trained to recognize so many 
 things and, at some point, there is no such difference in recognizing shapes and curves in an image with a cat than in an image with Batman: they are all curves, more or less.
 {: style="text-align: justify;"}
-The big idea behind Transfer Learning is to use reuse the first layers of the neural network because they have been trained to detect very basic things such as edges, curves, 
+The big idea behind Transfer Learning is to reuse the first layers of the neural network because they have been trained to detect very basic things such as edges, curves, 
 certain shapes. The _only thing_ we have to do is to fine tune (i.e specialize with new training) the last layers of this network so that the output will match the number of classes we want to detect (5 in our case).
 {: .notice--info style="text-align: justify;"}
 
