@@ -1,6 +1,6 @@
 ---
 title: "Keep your customers by your side"
-excerpt: "In this post I propose you to explore data from a fictional digital music service company and build algorithms that will help them to detect user churn"
+excerpt: "In this post I propose you to explore data from a fictional digital music service company named Sparkify, use Spark and build algorithms that will help them to detect user churn"
 header:
   image: /assets/images/20191031/goodbye.jpg
   caption: "Photo by [Jan Tinneberg](https://unsplash.com/@craft_ear) on [**Unsplash**](https://unsplash.com/photos/gJJhG4gM7NA)"
