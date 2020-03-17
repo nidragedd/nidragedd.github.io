@@ -63,7 +63,7 @@ be able to launch the detection phase by pushing a "start" button**.
 {: .small style="text-align: justify;"}
 
 Below is a video of what it looks like in the end: I have tested it with a picture of one smiling person.
-{% include video id="1A4pBm2P2zqY0GOnHp7nxHJW5KEY4F7nG" provider="google-drive" %}
+{% include video id="1A1yVBAq_JBK5n-QIXme-l7kDk-w1U764" provider="google-drive" %}
 
 _Want to know how I did that? That is what I am going to share with you in this post!_
 
@@ -424,7 +424,7 @@ For those tests, I took pictures from fashion magazines or flyers.
 {: style="text-align: justify;"}
 
 #### 6.1. No smile = no candies!
-{% include video id="1kIFC8pgJcD8LBKPKYqKRDbgKMF3csYeF" provider="google-drive" %}
+{% include video id="1GNaQLFM7N19RMj_vRMXBN9yg85cPvoj9" provider="google-drive" %}
 
 Associated logs for this try:
 ```
@@ -447,7 +447,7 @@ The whole process takes around 5 seconds with 2s of waiting time. For both model
 {: style="text-align: justify;"}
 
 #### 6.2. One smiling person
-{% include video id="1hPVkzHjfNF-xv-pu7hGnWRCiVaer4gZl" provider="google-drive" %}
+{% include video id="1m_95RSmwhWSHARwaQtRc4IpGbaJQ8Yzy" provider="google-drive" %}
 
 Associated logs for this try:
 ```
@@ -468,7 +468,7 @@ Associated logs for this try:
 
 #### 6.3. More than one person
 If Candybot detects more than one person, then all have to smile/be detected as _Happy_ in order to free candies.
-{% include video id="1dwMvAiqVyKJkgELy9-XCcMyfufIIVHYg" provider="google-drive" %}
+{% include video id="1w8KQ4qgGHobSkN76eONbtQYD6pPZPxAt" provider="google-drive" %}
 
 Associated logs for this try:
 ```text
@@ -486,7 +486,7 @@ Associated logs for this try:
 ```
 
 #### 6.4. Access to inference results
-{% include video id="1qcJqUDaqDmLgxV37mS8Cw_l8BFmXckj7" provider="google-drive" %}
+{% include video id="1fIuWWDVAx7ekfUsML9Hr9yxWTqOeXRJi" provider="google-drive" %}
 
 ---
 
