@@ -15,9 +15,7 @@ title_separator          : "-"
 subtitle                 : "by nidragedd"
 name                     : "nidragedd"
 description: >- # this means to ignore newlines until "baseurl:"
-  For a very long time interested in Artificial Intelligence and after 15 years working 
-  in IT as Java Tech Lead then IT Team leader I am now starting a new career as DataScientist.
-  This is where it all starts !
+  IT software engineer, I have been working in IT as Java Tech Lead then Engineering Manager during +15 years. For a very long time interested in Artificial Intelligence, I switched in Data Business Unit to become a Data Scientist. This is just a place to share my personal projects. Enjoy!
 url                      : "https://nidragedd.github.io" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "nidragedd/nidragedd.github.io" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
@@ -96,7 +94,7 @@ plugins:
 author:
   name             : "David D."
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "For a very long time interested in Artificial Intelligence and after 15 years working in IT as Java Tech Lead then IT Team leader I am now starting a new career as DataScientist. _This is where it all starts !_"
+  bio              : "IT software engineer, I have been working in IT as Java Tech Lead then Engineering Manager during +15 years. For a very long time interested in Artificial Intelligence, I switched in Data Business Unit to become a Data Scientist. This is just a place to share my personal projects. _Enjoy!_"
   location         : "Lille, France"
   email            :
   links:
